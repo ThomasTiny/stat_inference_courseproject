@@ -1,10 +1,7 @@
------
-Title: Central Limit Theorem - A Simulation Exercise
-Author: Thomas Ng Jia Chee
-Date: 20 October 2015
+######Title: A Simulation Exercise for Exponential Distribution and Central Limit Theorem
+######Author: Thomas Ng Jia Chee
+######Date: 20 October 2015
 
-
------
 ## Overview
 
 This simulation aims to investigate the exponential distribution in R and compare it with Central Limit Theorem. The exponential distribution is the probability distribution that describes the time between events in a Poisson process. 
@@ -13,39 +10,52 @@ This simulation aims to investigate the exponential distribution in R and compar
 
 Central Limit Theorem states that, when sufficient large number of iterates of independent random variables, the result will be approximately normally distributed, regardless of the underlying distribution. 
 
-In this simulation lambda is set at *0.2*, sample size is *40* and number of simulation (sampling) is *1000*.
+**In this simulation lambda is set at *0.2*, sample size is *40* and number of simulation (sampling) is *1000*.**
 
------
 ## Simulation
 
 ```{r}
-#set lambda 
+# set lambda 
 lambda <- 0.2
 
-#set number of observation (sample size)
+# set number of observation (sample size)
 n <- 40
 
-#set number of simualtion (sampling)
+# set number of simualtion (sampling)
 count <- 1000
 
-#simulate exponential distribution of 'n' samples a 'count' times
+# simulate exponential distribution of 'n' samples a 'count' times
 exp_dist_simulation <- replicate(count, rexp(n, lambda))
 
-#apple function 'mean' onto 'exp_dist_simulation', 2 represents column
-#also called Sampling Distribution of the Sample Mean
+# apply function 'mean' to 'exp_dist_simulation', 2 represents column
+# also called Sampling Distribution of the Sample Mean
 sample_mean <- apply(exp_dist_simulation, 2, mean)
 ```
 
+## Result of simulation 
 
-## Result of simulation
+In theory, both mean and standard deviation of this expoenential distribution simulation should be *1/lambda (0.2)* which is *5*. 
 
-In theory, both mean and standard deviation of this expoenential distribution simulation should be *1/lambda (0.2)* which is *5*. Variance is square of standard deviation. Thus, it should be *25*. 
+Standard Error (standard deviation of the sampling distribution of the sample mean) is standard deviation of the population divides by the square root of number of observation, *5/sqrt(1000)* which is *0.79*. 
 
 Let's find out if simulation result matches theory.
 ```{r}
 # mean of Sampling Distribution of the Sample Mean (mean of means)
+# is it 5 ?
 mean(sample_mean)
+# standard deviation of Sampling Distribution of the Sample Mean
+# aka Standard Error
+# is it 0.79 ?
+sd(sample_mean)
+# variance, is it 0.62 (0.79^2) ?
 var(sample_mean)
 ```
 
-Here, it is proven that simulation result is significantly close to theoretical mean and variance.
+Central limit theorem states that the result would be normally distributed.
+```{r simpleplot}
+# is it normally distributed ?
+hist(sample_mean, breaks=40)
+```
+
+**In conclusion, this simulation supports central limit theorem. The simulation results are significantly close to theoretical mean and variance. In addition, the sampling distribution is normally distributed, regardless of the underlying distribution.**
+
