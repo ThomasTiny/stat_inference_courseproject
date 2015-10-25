@@ -1,6 +1,6 @@
-######Title: **A Simulation Exercise for Exponential Distribution and Central Limit Theorem**
-######Author: **Thomas Ng Jia Chee**
-######Date: **20 October 2015**
+#####Title: **A Simulation Exercise for Exponential Distribution and Central Limit Theorem**
+#####Author: **Thomas Ng Jia Chee**
+#####Date: **20 October 2015**
 
 ## Overview
 
@@ -11,6 +11,8 @@ This simulation aims to investigate the exponential distribution in R and compar
 Central Limit Theorem states that, when sufficient large number of iterates of independent random variables, the result will be approximately normally distributed, regardless of the underlying distribution. 
 
 **In this simulation lambda is set at *0.2*, sample size is *40* and number of simulation (sampling) is *1000*.**
+
+---
 
 ## Simulation
 
@@ -31,6 +33,8 @@ exp_dist_simulation <- replicate(count, rexp(n, lambda))
 # also called Sampling Distribution of the Sample Mean
 sample_mean <- apply(exp_dist_simulation, 2, mean)
 ```
+
+---
 
 ## Result of simulation 
 
