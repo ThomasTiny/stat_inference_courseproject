@@ -1,11 +1,11 @@
-###READ ME
+####Course project for Statistical Inference on Coursera
 
-Statistical inference course project on Coursera
+#####Central Limit Theorem:
 
-Central Limit Theorem:
 A simulation exercise aims to investigate the exponential distribution in R and compare it with Central Limit Theorem.
 
-Tooth Analysis:
+#####Tooth Analysis:
+
 A project analyzes the ToothGrowth data in the R datasets package.
 
 
