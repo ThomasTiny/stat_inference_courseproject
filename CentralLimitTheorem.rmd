@@ -1,6 +1,6 @@
-######Title: A Simulation Exercise for Exponential Distribution and Central Limit Theorem
-######Author: Thomas Ng Jia Chee
-######Date: 20 October 2015
+######Title: **A Simulation Exercise for Exponential Distribution and Central Limit Theorem**
+######Author: **Thomas Ng Jia Chee**
+######Date: **20 October 2015**
 
 ## Overview
 

@@ -1,0 +1,98 @@
+#####Title: **Analyze the ToothGrowth data in the R datasets package**
+#####Author: **Thomas NG Jia Chee**
+#####Date: **20 October 2015**
+
+##Overview
+
+This project analyzes the ToothGrowth data in the R datasets package. It consists of 3 parts:
+
+1. A basic summary of the data
+2. Confidence intervals and hypothesis tests to compare tooth growth by **supplement type** and **quantity of dose**
+3. Conclusions and the assumptions taken
+
+---
+
+##1. A Basic Summary of Tooth Growth data
+
+```{r}
+# load dataset
+library(datasets)
+data("ToothGrowth")
+
+# structure of dataset
+str(ToothGrowth)
+# summary of dataset
+summary(ToothGrowth)
+# explore data using graphical method, using ggplot2
+library(ggplot2)
+# a quick plot to compare supplement type & quantity of dose
+qplot(supp, len, data=ToothGrowth, geom=c('boxplot'), fill=as.factor(dose))
+```
+
+The observation from the graph is
+
+1. **Supplement type does not have strong correlation with tooth growth.**
+2. **Higher amount of supplement dose may stimulate tooth growth.**
+
+---
+
+##2. Confidence intervals and hypothesis tests
+
+####Part 2.1: The correlation between supplement type and tooth growth
+
+>Null hypothesis states that supplement has no significant difference in stimulating tooth growth. T-test is conducted at 5% significance level.
+```{r}
+# use t-test to compare tooth growth by supplement type
+t.test(len ~ supp, data = ToothGrowth)
+```
+
+T-test shown that, at 95 percent confience interval,
+
+1. P-value is 6%, higher than 5%.
+2. Confidence interval contains 0
+
+**Thus, null hypothesis CANNOT be rejected. Supplement type does not have strong correlation with tooth growth.**
+
+---
+
+####Part 2.2: The correlation between quantity of dose and tooth growth
+
+>Null hypothesis states that quantity of dose has no significant difference in stimulating tooth growth. T-test is conducted at 5% significance level. 
+```{r}
+# To determine correlation of quantity of dose with tooth growth, subset groups based on dose levels, using package 'dplyr'
+# There 3 groups (3 Choose 2):
+library(dplyr)
+group_one <- filter(ToothGrowth, dose %in% c(0.5,1))
+group_two <- filter(ToothGrowth, dose %in% c(0.5,2))
+group_three <- filter(ToothGrowth, dose %in% c(1,2))
+
+# conduct t-test for all groups
+t.test(len ~ dose, data=group_one)
+t.test(len ~ dose, data=group_two)
+t.test(len ~ dose, data=group_three)
+
+```
+
+All of the t-test above shown that, at 95 percent confience interval,
+
+1. P-value is significantly less than 5%
+2. Confidence interval is well above 0
+
+**Thus, null hypothesis CAN be rejected. Higher quantity of dose stimulates tooth growth.**
+
+---
+
+##3. Conclusions and assumptions taken
+
+In conclusion,
+
+1. Supplement type does not have strong correlation with tooth growth.
+2. Higher quantity of dose stimulates tooth growth.
+
+The conclusions drawn from above t-test are based on the following assumptions,
+
+* Bivariate independent variable (A, B groups)
+* Continuous dependent variable
+* Each observation of the dependent variable is independent of the other observations of the dependent variable (its probability distribution isn't affected by their values).
+
+Source: http://www.csic.cornell.edu/Elrod/t-test/t-test-assumptions.html
