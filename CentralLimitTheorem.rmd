@@ -1,0 +1,51 @@
+-----
+Title: Central Limit Theorem - A Simulation Exercise
+Author: Thomas Ng Jia Chee
+Date: 20 October 2015
+
+
+-----
+## Overview
+
+This simulation aims to investigate the exponential distribution in R and compare it with Central Limit Theorem. The exponential distribution is the probability distribution that describes the time between events in a Poisson process. 
+
+**Mean = Standard Deviation = lambda^(-1)**
+
+Central Limit Theorem states that, when sufficient large number of iterates of independent random variables, the result will be approximately normally distributed, regardless of the underlying distribution. 
+
+In this simulation lambda is set at *0.2*, sample size is *40* and number of simulation (sampling) is *1000*.
+
+-----
+## Simulation
+
+```{r}
+#set lambda 
+lambda <- 0.2
+
+#set number of observation (sample size)
+n <- 40
+
+#set number of simualtion (sampling)
+count <- 1000
+
+#simulate exponential distribution of 'n' samples a 'count' times
+exp_dist_simulation <- replicate(count, rexp(n, lambda))
+
+#apple function 'mean' onto 'exp_dist_simulation', 2 represents column
+#also called Sampling Distribution of the Sample Mean
+sample_mean <- apply(exp_dist_simulation, 2, mean)
+```
+
+
+## Result of simulation
+
+In theory, both mean and standard deviation of this expoenential distribution simulation should be *1/lambda (0.2)* which is *5*. Variance is square of standard deviation. Thus, it should be *25*. 
+
+Let's find out if simulation result matches theory.
+```{r}
+# mean of Sampling Distribution of the Sample Mean (mean of means)
+mean(sample_mean)
+var(sample_mean)
+```
+
+Here, it is proven that simulation result is significantly close to theoretical mean and variance.
